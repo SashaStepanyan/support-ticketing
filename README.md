@@ -3,13 +3,25 @@
 This project demonstrates how to run a Laravel application using MongoDB, Vite (with VueJS), and Nginx in Docker. All Docker-related files are placed in the **Docker/** folder inside your project.
 
 There are two environments provided:
-- **Development:** Uses volume mounts so that changes on your Windows host (using Docker’s Linux containers) are reflected immediately in the containers.
+- **Development:** Uses volume mounts so that changes on your machine (using Docker’s Linux containers) are reflected immediately in the containers.
 - **Production:** Copies the code into the images during build so that the containers are self-contained.
 
 > **Note:** This setup requires Docker Desktop (or another Docker environment) on Windows running Linux containers.
 
 ## Project Structure
+project/   
+&nbsp;&nbsp;├── app files and folders… <br />
+&nbsp;&nbsp;&nbsp;&nbsp;└── Docker/ <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Dockerfile.php.dev # PHP dev image (Laravel with ext-mongodb) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Dockerfile.prod # prod image (Laravel with ext-mongodb and Node JS build) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Dockerfile.node.dev # Node/Vite dev image (runs npm install & npm run dev) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── docker-compose.dev.yml # Compose file for development mode <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── docker-compose.prod.yml # Compose file for production mode <br />
+&nbsp;&nbsp;&nbsp;&nbsp;└── nginx <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── dev/default.conf # Nginx config for development (with Vite proxy) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── prod/default.conf
 
+# Nginx config for production
 
 ## Requirements
 
@@ -99,19 +111,4 @@ Ensure Docker Desktop has file sharing enabled for the drive containing your pro
 Adjust the Dockerfiles, docker-compose files, and Nginx configurations as needed to suit your project requirements and environment variables.
 
 ### Troubleshooting:
-Use docker-compose logs to view container logs if you encounter any issues during startup.
-
-### Conclusion
-This setup provides a comprehensive Dockerized environment for both development and production of your Laravel + MongoDB + Vite (VueJS) + Nginx application. Feel free to modify and extend these configurations as your project evolves.
-
-Happy coding!
-
----
-
-## Final Instructions
-
-1. Place all the Dockerfiles, compose files, and nginx configurations in the **Docker/** folder as shown.
-2. Adjust any paths or commands in the Dockerfiles or compose files as needed for your specific project.
-3. Follow the instructions in the README to build and run your containers in development or production modes.
-
-This updated configuration should fully match your requirements with everything located in the **Docker/** folder within your project.
+Use ```bash docker-compose logs``` to view container logs if you encounter any issues during startup.
