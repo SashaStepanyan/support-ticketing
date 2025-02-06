@@ -1,19 +1,10 @@
 version: "3.8"
 
 services:
-  php:
+  php_node:
     build:
       context: ../
-      dockerfile: Docker/Dockerfile.php.prod
-    environment:
-      - APP_ENV:""
-    networks:
-      - app-network
-
-  node:
-    build:
-      context: ../
-      dockerfile: Docker/Dockerfile.node.prod
+      dockerfile: Docker/Dockerfile.prod
     networks:
       - app-network
 
@@ -25,16 +16,21 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - php
+      - php_node
     networks:
       - app-network
 
   mongo:
     image: mongo:latest
+    volumes:
+      - data:/data
     ports:
       - "27017:27017"
     networks:
       - app-network
+
+volumes:
+  data:
 
 networks:
   app-network:

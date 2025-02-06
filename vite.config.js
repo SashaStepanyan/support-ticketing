@@ -19,12 +19,9 @@ export default defineConfig({
     },
     server: {
         hmr: {
-            host: "0.0.0.0",
+            host: "localhost",
         },
         port: 5173,
         host: true,
-    },
-    build: {
-        publicDir: 'public',
     },
 });

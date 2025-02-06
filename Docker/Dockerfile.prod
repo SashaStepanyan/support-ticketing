@@ -1,21 +1,31 @@
 FROM php:8.4-fpm
 
 ENV APP_ENV=production
+ENV DB_HOST=mongo
 
 RUN apt-get update && apt-get install -y libssl-dev \
+    && apt-get -y install curl \
+    && curl -sL https://deb.nodesource.com/setup_22.x | bash \
+    && apt-get install -y nodejs \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www/html
-
 # Copy all project files into the container from the parent folder
 COPY . /var/www/html
+
+RUN npm run build
+
+COPY ./public/build /var/www/html/public/build
 
 # Install Composer globally (using the official composer image)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install PHP dependencies (adjust command as needed)
 RUN composer install --no-dev --optimize-autoloader
+
+RUN chown 1000:1000 -R /var/www/html
+
+USER 1000
 
 CMD ["php-fpm"]

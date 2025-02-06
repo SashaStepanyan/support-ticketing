@@ -4,4 +4,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/{vue_capture?}', function () {
     return view('welcome');
-})->where('vue_capture', '(?![api])[\/\w\.-]*');
+})->where('vue_capture', '(?![api])(?![build])[\/\w\.-]*');

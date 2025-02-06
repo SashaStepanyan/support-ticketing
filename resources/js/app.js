@@ -9,7 +9,7 @@ import App from "./App.vue";
 import axios from 'axios';
 import store from './store';
 
-axios.defaults.baseURL = 'https://ticketing-app.test/api';
+axios.defaults.baseURL = 'http://localhost/api';
 axios.interceptors.request.use(config => {
     const token = store.state.token;
     if (token) {
