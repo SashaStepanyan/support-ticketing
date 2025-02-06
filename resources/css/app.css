@@ -1,0 +1,3 @@
+@import "tailwindcss";
+@import '@vueform/vueform/dist/vueform.css';
+@import './modal.css';
